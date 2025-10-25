@@ -1,15 +1,38 @@
 const conversationModel = require("../models/conversationModel");
+const messageModel = require("../models/messageModel");
+const genaiService = require("../services/genaiService");
 
 
 async function add(req, res) {
     try {
-        const { title } = req.body;
+        const { prompt } = req.body;
 
-        conversationModel.newConversation(title);
+        const conversationId = conversationModel.newConversation("New Conversation").lastInsertRowid;
 
-        res.sendStatus(200);
+        messageModel.addMessage(conversationId, "user", prompt);
+
+        const aiResponse = await genaiService.generateContent(prompt);
+
+        messageModel.addMessage(conversationId, "AI", aiResponse);
+
+        res.status(200).send({
+            conversationId: conversationId,
+            response: aiResponse
+        });
     } catch (err) {
         console.error("Error adding conversation:", err);
+        res.sendStatus(500);
+    }
+}
+
+
+async function getAll(req, res) {
+    try {
+        const conversations = conversationModel.getConversations();
+
+        res.send({ conversations });
+    } catch (err) {
+        console.error("Error retrieving conversations:", err);
         res.sendStatus(500);
     }
 }
@@ -43,6 +66,7 @@ async function remove(req, res) {
 
 module.exports = {
     add,
+    getAll,
     rename,
     remove
 };

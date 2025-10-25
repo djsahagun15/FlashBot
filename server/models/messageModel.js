@@ -1,26 +1,26 @@
 const db = require("../data/db");
 
 const addMessageStmt = db.prepare(`
-    INSERT INTO messages (id, content)
-    VALUES (?, ?)
+    INSERT INTO messages (conversation_id, sender, content)
+    VALUES (?, ?, ?)
 `);
 
 
 const getMessagesStmt = db.prepare(`
-    SELECT content
+    SELECT sender, content
     FROM messages
     WHERE conversation_id = ?
-    ORDER BY id DESC
+    ORDER BY id ASC
 `);
 
 
-function addMessage(id, content) {
-    return addMessageStmt.run(id, content);
+function addMessage(conversationId, sender, content) {
+    return addMessageStmt.run(conversationId, sender, content);
 }
 
 
 function getMessages(conversationId) {
-    return getMessagesStmt.all(conversationId);
+    return getMessagesStmt.all(conversationId) || [];
 }
 
 

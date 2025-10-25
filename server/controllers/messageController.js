@@ -3,9 +3,9 @@ const messageModel = require("../models/messageModel");
 
 async function addMessage(req, res) {
     try {
-        const { id, content } = req.body;
+        const { conversationId, content } = req.body;
         
-        messageModel.addMessage(id, content);
+        messageModel.addMessage(conversationId, content);
 
         res.sendStatus(200);
     } catch (err) {
@@ -17,11 +17,11 @@ async function addMessage(req, res) {
 
 async function getMessages(req, res) {
     try {
-        const { id } = req.body;
+        const { conversationId } = req.params;
 
-        messageModel.getMessages(id);
+        const messages = messageModel.getMessages(conversationId);
         
-        res.sendStatus(200);
+        res.send(messages);
     } catch (err) {
         console.error("Error retrieving messages:", err);
         res.sendStatus(500);

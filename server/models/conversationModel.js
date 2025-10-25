@@ -9,7 +9,6 @@ const newConversationStmt = db.prepare(`
 const getConversationsStmt = db.prepare(`
     SELECT *
     FROM conversations
-    WHERE id = ?
 `);
 
 
@@ -31,8 +30,8 @@ function newConversation(title) {
 }
 
 
-function getConversations(id) {
-    return getConversationsStmt.all(id);
+function getConversations() {
+    return getConversationsStmt.all() || [];
 }
 
 
