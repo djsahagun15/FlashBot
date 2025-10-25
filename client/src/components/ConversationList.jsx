@@ -10,7 +10,7 @@ export default function ConversationList() {
             headerContent={
                 <div className="list-header">
                     <h2>FlashBot</h2>
-                    <Link to="/chat/new">
+                    <Link to="/chat/">
                         <img alt="New Chat"/>
                     </Link>
                 </div>

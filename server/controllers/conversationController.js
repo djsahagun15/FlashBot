@@ -5,18 +5,23 @@ const genaiService = require("../services/genaiService");
 
 async function add(req, res) {
     try {
-        const { prompt } = req.body;
+        const { conversationId, prompt } = req.body;
 
-        const conversationId = conversationModel.newConversation("New Conversation").lastInsertRowid;
+        let id = conversationId;
 
-        messageModel.addMessage(conversationId, "user", prompt);
+        if (!id) {
+            const newId = conversationModel.newConversation("New Conversation").lastInsertRowid;
+            id = newId;
+        }
+
+        messageModel.addMessage(id, "user", prompt);
 
         const aiResponse = await genaiService.generateContent(prompt);
 
-        messageModel.addMessage(conversationId, "AI", aiResponse);
+        messageModel.addMessage(id, "AI", aiResponse);
 
         res.status(200).send({
-            conversationId: conversationId,
+            conversationId: id,
             response: aiResponse
         });
     } catch (err) {

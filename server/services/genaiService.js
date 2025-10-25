@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const { GoogleGenAI } = require("@google/genai");
 
 const GEMINI_API_KEY = process.env.API_KEY;
@@ -12,8 +10,8 @@ async function generateContent(prompt) {
         model: "gemini-2.0-flash",
         contents: prompt
     });
-
-    console.log(response.text);
+    
+    return response.text;
 }
 
 

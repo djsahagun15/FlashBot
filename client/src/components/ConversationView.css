@@ -51,6 +51,32 @@
 }
 
 
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+
+.message {
+    max-width: 80%;
+    padding: 0.6rem 1rem;
+    border-radius: 1rem;
+    line-height: 1.4;
+}
+
+
+.message.user {
+    align-self: flex-end;
+}
+
+
+.message.ai {
+    align-self: flex-start;
+}
+
+
 .view-footer {
     display: flex;
     justify-content: center;
@@ -83,6 +109,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    outline: none;
 }
 
 

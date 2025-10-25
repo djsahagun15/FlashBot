@@ -4,7 +4,7 @@ const { add, getAll, rename, remove } = require("../controllers/conversationCont
 
 const router = express.Router();
 
-router.post("/new", add);
+router.post("/add", add);
 
 router.all("/get-all", getAll);
 

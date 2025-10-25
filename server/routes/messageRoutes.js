@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/new", addMessage);
 
-router.all("/get", getMessages);
+router.all("/get/:conversationId", getMessages);
 
 
 module.exports = router;

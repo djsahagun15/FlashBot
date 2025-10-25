@@ -9,7 +9,7 @@ export default function TimeBasedGreeting() {
 
     return (
         <>
-            <h1>{getGreeting()}</h1>
+            <h1 style={{ userSelect: "none" }}>{getGreeting()}</h1>
         </>
     )
 }

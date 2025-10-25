@@ -8,7 +8,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<ConversationList/>}/>
-      <Route path="/chat/new" element={<ConversationView/>}/>
+      <Route path="/chat/" element={<ConversationView/>}/>
       <Route path="/chat/:conversationId" element={<ConversationView/>}/>
       <Route path="*" element={<h1>404 - Page not found</h1>}/>
     </Routes>
