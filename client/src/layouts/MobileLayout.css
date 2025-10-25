@@ -1,0 +1,27 @@
+#mobile-div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+#mobile-div header {
+    text-align: center;
+}
+
+
+#mobile-div main {
+    flex: 1;
+}
+
+
+#mobile-div footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

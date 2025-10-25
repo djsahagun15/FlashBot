@@ -1,7 +1,11 @@
-export default function MobileLayout() {
+import './MobileLayout.css';
+
+export default function MobileLayout({ headerContent, mainContent, footerContent }) {
     return (
-        <div>
-            <h1>MOBILE</h1>
+        <div id='mobile-div'>
+            <header>{headerContent}</header>
+            <main>{mainContent}</main>
+            <footer>{footerContent}</footer>
         </div>
-    )
+    );
 }

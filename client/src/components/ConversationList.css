@@ -1,0 +1,37 @@
+.list-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    height: 50px;
+
+    background-color: #f9f9f9;
+}
+
+
+.list-header h2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+
+.list-header img {
+    width: 60px;
+    height: auto;
+    display: block;
+    content: url("../assets/new-chat-light.svg");
+    cursor: pointer;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .list-header {
+        background-color: #141414;
+    }
+    
+    .list-header img {
+        content: url("../assets//new-chat-dark.svg");
+    }
+}
