@@ -61,10 +61,17 @@
 
 
 .message {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
     max-width: 80%;
     padding: 0.6rem 1rem;
     border-radius: 1rem;
     line-height: 1.4;
+}
+
+
+.message p {
+    margin: 0;
 }
 
 
@@ -130,6 +137,11 @@
     
     .view-header img {
         content: url("../assets/back-dark.svg");
+    }
+
+    .message {
+        background-color: #141414;
+        border: 1px solid #444444;
     }
 
     .view-footer img {
