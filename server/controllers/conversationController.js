@@ -8,21 +8,30 @@ async function add(req, res) {
         const { conversationId, prompt } = req.body;
 
         let id = conversationId;
+        let titlePromise = Promise.resolve(null);
 
         if (!id) {
+            titlePromise = genaiService.generateContent(`Generate ONLY 1 short, descriptive title for this conversation: ${prompt}`);
+            
             const newId = conversationModel.newConversation("New Conversation").lastInsertRowid;
             id = newId;
         }
 
         messageModel.addMessage(id, "user", prompt);
 
-        const aiResponse = await genaiService.generateContent(prompt);
+        const responsePromise = genaiService.generateContent(prompt);
 
-        messageModel.addMessage(id, "AI", aiResponse);
+        const [titleResult, responseResult] = await Promise.all([titlePromise, responsePromise]);
+
+        messageModel.addMessage(id, "AI", responseResult);
+
+        if (titleResult) {
+            conversationModel.renameConversation(id, titleResult);
+        }
 
         res.status(200).send({
             conversationId: id,
-            response: aiResponse
+            response: responseResult
         });
     } catch (err) {
         console.error("Error adding conversation:", err);
@@ -35,7 +44,7 @@ async function getAll(req, res) {
     try {
         const conversations = conversationModel.getConversations();
 
-        res.send({ conversations });
+        res.send(conversations);
     } catch (err) {
         console.error("Error retrieving conversations:", err);
         res.sendStatus(500);
