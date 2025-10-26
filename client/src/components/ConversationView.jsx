@@ -42,7 +42,7 @@ export default function ConversationView() {
         setPrompt("");
 
         try {
-            messages.push({ sender: "user", content: prompt });
+            setMessages([...messages, { sender: "user", content: prompt }]);
 
             const res = await fetch(
                 "/api/conversation/add",
@@ -59,7 +59,7 @@ export default function ConversationView() {
             if (res.ok) {
                 const data = await res.json();
 
-                messages.push({ sender: "AI", content: data.response });
+                setMessages([...messages, { sender: "AI", content: data.response }]);
 
                 if (data.conversationId != conversationId) {
                     navigate(`/chat/${data.conversationId}`);
