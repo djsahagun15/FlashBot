@@ -136,6 +136,68 @@
 }
 
 
+.conversation-rename-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+
+.conversation-rename-modal form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    width: 250px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.conversation-rename-modal form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+.conversation-rename-modal-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+.conversation-rename-modal-controls button:nth-of-type(2) {
+    background-color: #007bff;
+}
+
+
+.conversation-rename-modal-controls button:nth-of-type(2):hover {
+    border-color: #e0e0e0;
+}
+
+
+.conversation-rename-modal-controls button:nth-of-type(2):disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
 @media (prefers-color-scheme: dark) {
     .list-header {
         background-color: #141414;
@@ -156,6 +218,7 @@
 
     .conversation-item:hover {
         filter: drop-shadow(0 0 2em rgba(187, 187, 187, 0.2));
+        cursor: pointer;
     }
 
 
@@ -166,5 +229,14 @@
 
     #conversation-rename img {
         content: url("/src/assets/edit-dark.svg");
+    }
+
+    .conversation-rename-modal form {
+        background-color: #0c0c0c;
+        border: 1px solid #444444;
+    }
+
+    .conversation-rename-modal form input {
+        border: 1px solid #444444;
     }
 }

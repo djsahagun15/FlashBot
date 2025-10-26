@@ -46,8 +46,6 @@ export default function ConversationView() {
     const promptHandler = async(e) => {
         e.preventDefault();
 
-        setPrompt("");
-
         try {
             setMessages(arr => [...arr, { sender: "user", content: prompt }]);
 
@@ -75,6 +73,8 @@ export default function ConversationView() {
             }
         } catch (err) {
             console.error(err);
+        } finally {
+            setPrompt("");
         }
     }
 

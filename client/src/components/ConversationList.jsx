@@ -11,6 +11,10 @@ export default function ConversationList() {
     const navigate = useNavigate();
 
     const [conversations, setConversations] = useState([]);
+
+    const [selectedConversation, setSelectedConversation] = useState({});
+    const [newTitle, setNewTitle] = useState("");
+    const [isRenaming, setIsRenaming] = useState(false);
     
     useEffect(() => {
         (async () => {
@@ -29,6 +33,38 @@ export default function ConversationList() {
             }
         })();
     }, []);
+
+    const renameConversation = async(e) => {
+        e.preventDefault();
+        
+        try {
+            const res = await fetch(
+                "/api/conversation/rename",
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        id: selectedConversation.id,
+                        title: newTitle
+                    })
+                },
+            );
+
+            if (res.ok) {
+                setConversations(arr => 
+                    arr.map(conversation => 
+                        conversation.id === selectedConversation.id ? { ...conversation, title: newTitle } : conversation
+                    )
+                );
+            }
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setSelectedConversation({});
+            setNewTitle("");
+            setIsRenaming(false);
+        }
+    }
     
     return (
         <MobileLayout
@@ -63,14 +99,16 @@ export default function ConversationList() {
                                     <div className="conversation-controls">
                                         <button id="conversation-rename" onClick={(e) => {
                                             e.stopPropagation();
-                                            console.log("EDIT");
+
+                                            setIsRenaming(true);
+                                            setSelectedConversation(conversation);
                                         }}>
                                             <img alt="Rename"/>
                                             Rename
                                         </button>
                                         <button id="conversation-delete" onClick={(e) => {
                                             e.stopPropagation();
-                                            console.log("EDIT");
+                                            console.log("DELETE");
                                         }}>
                                             <img alt="Delete"/>
                                             Delete
@@ -78,6 +116,35 @@ export default function ConversationList() {
                                     </div>
                                 </div>
                             ))}
+                            {isRenaming && (
+                                <div className="conversation-rename-modal">
+                                    <form onSubmit={renameConversation}>
+                                        <input
+                                            type="text"
+                                            value={newTitle}
+                                            placeholder={selectedConversation.title}
+                                            onChange={(e) => setNewTitle(e.target.value)}
+                                            required
+                                        />
+                                        <div className="conversation-rename-modal-controls">
+                                            <button onClick={() => {
+                                                setNewTitle("");
+                                                setSelectedConversation({});
+                                                setIsRenaming(false);
+                                            }}
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button 
+                                                type='submit' 
+                                                disabled={newTitle.trim() === ""}
+                                            >
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
