@@ -71,6 +71,8 @@ async function remove(req, res) {
         const { id } = req.body;
 
         conversationModel.removeConversation(id);
+
+        res.send({ message: "Deleted successfully" });
     } catch (err) {
         console.error("Error deleting conversation:", err);
         res.status(500).send({ message: "Failed to delete conversation" });

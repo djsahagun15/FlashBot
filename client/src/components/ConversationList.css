@@ -51,8 +51,16 @@
 
 
 .empty button {
+    width: auto;
+    border: 1px solid #e0e0e0;
+    align-self: center;
     cursor: pointer;
     outline: none;
+}
+
+
+.empty button:hover {
+    background-color: #dbdbdb;
 }
 
 
@@ -136,7 +144,7 @@
 }
 
 
-.conversation-rename-modal {
+.conversation-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -150,7 +158,7 @@
 }
 
 
-.conversation-rename-modal form {
+.conversation-modal form {
     background-color: #f9f9f9;
     padding: 20px;
     border: 1px solid #e0e0e0;
@@ -163,7 +171,7 @@
 }
 
 
-.conversation-rename-modal form input {
+.conversation-modal form input {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -175,26 +183,52 @@
 }
 
 
-.conversation-rename-modal-controls {
+.conversation-modal-controls {
     display: flex;
     justify-content: center;
     gap: 10px;
 }
 
 
-.conversation-rename-modal-controls button:nth-of-type(2) {
+.conversation-modal-controls.rename button:nth-of-type(2) {
     background-color: #007bff;
 }
 
 
-.conversation-rename-modal-controls button:nth-of-type(2):hover {
+.conversation-modal-controls.rename button:nth-of-type(2):hover {
     border-color: #e0e0e0;
 }
 
 
-.conversation-rename-modal-controls button:nth-of-type(2):disabled {
+.conversation-modal-controls.rename button:nth-of-type(2):disabled {
     background-color: #ccc;
     cursor: not-allowed;
+}
+
+
+.conversation-delete-modal {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    width: 250px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.conversation-modal-controls.delete button:nth-of-type(2) {
+    color: white;
+    background-color: #db2e2e;
+}
+
+
+.conversation-modal-controls.delete button:nth-of-type(2):hover {
+    background-color: #b41818;
 }
 
 
@@ -206,6 +240,14 @@
     
     .list-header img {
         content: url("/src/assets/new-chat-dark.svg");
+    }
+
+    .empty button {
+        border: 1px solid #444444;
+    }
+
+    .empty button:hover {
+        background-color: #2e2e2e;
     }
 
     .conversation-item {
@@ -231,12 +273,12 @@
         content: url("/src/assets/edit-dark.svg");
     }
 
-    .conversation-rename-modal form {
+    .conversation-modal form {
         background-color: #0c0c0c;
         border: 1px solid #444444;
     }
 
-    .conversation-rename-modal form input {
+    .conversation-modal form input {
         border: 1px solid #444444;
     }
 }

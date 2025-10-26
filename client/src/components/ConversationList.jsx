@@ -15,6 +15,8 @@ export default function ConversationList() {
     const [selectedConversation, setSelectedConversation] = useState({});
     const [newTitle, setNewTitle] = useState("");
     const [isRenaming, setIsRenaming] = useState(false);
+
+    const [confirmDeletion, setConfirmDeletion] = useState(false);
     
     useEffect(() => {
         (async () => {
@@ -65,6 +67,34 @@ export default function ConversationList() {
             setIsRenaming(false);
         }
     }
+
+    const deleteConversation = async(e) => {
+        e.preventDefault();
+
+        try {
+            console.log("BEFORE DELETION");
+            
+            const res = await fetch(
+                "/api/conversation/delete",
+                {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id: selectedConversation.id })
+                },
+            );
+
+            console.log("AFTER DELETION");
+
+            if (res.ok) {
+                setConversations(arr => arr.filter(conversation => conversation.id !== selectedConversation.id));
+            }
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setSelectedConversation({});
+            setConfirmDeletion(false);
+        }
+    }
     
     return (
         <MobileLayout
@@ -108,7 +138,9 @@ export default function ConversationList() {
                                         </button>
                                         <button id="conversation-delete" onClick={(e) => {
                                             e.stopPropagation();
-                                            console.log("DELETE");
+                                            
+                                            setSelectedConversation(conversation);
+                                            setConfirmDeletion(true);
                                         }}>
                                             <img alt="Delete"/>
                                             Delete
@@ -117,7 +149,7 @@ export default function ConversationList() {
                                 </div>
                             ))}
                             {isRenaming && (
-                                <div className="conversation-rename-modal">
+                                <div className="conversation-modal">
                                     <form onSubmit={renameConversation}>
                                         <input
                                             type="text"
@@ -126,7 +158,7 @@ export default function ConversationList() {
                                             onChange={(e) => setNewTitle(e.target.value)}
                                             required
                                         />
-                                        <div className="conversation-rename-modal-controls">
+                                        <div className="conversation-modal-controls rename">
                                             <button onClick={() => {
                                                 setNewTitle("");
                                                 setSelectedConversation({});
@@ -143,6 +175,24 @@ export default function ConversationList() {
                                             </button>
                                         </div>
                                     </form>
+                                </div>
+                            )}
+
+                            {confirmDeletion && (
+                                <div className="conversation-modal">
+                                    <div className="conversation-delete-modal">
+                                        <p>This action will permanently delete <b>{selectedConversation.title}</b></p>
+                                        <div className="conversation-modal-controls delete">
+                                            <button onClick={() => {
+                                                setSelectedConversation({});
+                                                setConfirmDeletion(false);
+                                            }}
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button onClick={deleteConversation}>Delete</button>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>
