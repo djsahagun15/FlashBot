@@ -7,6 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 
 import "./ConversationView.css"
+import { useRef } from "react"
 
 export default function ConversationView() {
     const navigate = useNavigate();
@@ -15,6 +16,8 @@ export default function ConversationView() {
     
     const [messages, setMessages] = useState([]);
     const [prompt, setPrompt] = useState("");
+
+    const messagesEndRef = useRef(null);
 
     useEffect(() => {
         if (!conversationId) return;
@@ -35,6 +38,10 @@ export default function ConversationView() {
             }
         })();
     }, [conversationId]);
+
+    useEffect(() => {
+        messagesEndRef?.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
 
     const promptHandler = async(e) => {
         e.preventDefault();
@@ -90,6 +97,7 @@ export default function ConversationView() {
                                     <p>{message.content}</p>
                                 </div>
                             ))}
+                            <div ref={messagesEndRef}></div>
                         </div>
                     )}
                 </div>
