@@ -103,7 +103,7 @@ export default function ConversationView() {
                             ))}
                             {isGenerating && (
                                 <div className="message typing">
-                                    <p>Generating...</p>
+                                    <p>Generating</p>
                                 </div>
                             )}
                             <div ref={messagesEndRef}></div>
