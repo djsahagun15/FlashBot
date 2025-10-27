@@ -72,8 +72,6 @@ export default function ConversationList() {
         e.preventDefault();
 
         try {
-            console.log("BEFORE DELETION");
-            
             const res = await fetch(
                 "/api/conversation/delete",
                 {
@@ -82,8 +80,6 @@ export default function ConversationList() {
                     body: JSON.stringify({ id: selectedConversation.id })
                 },
             );
-
-            console.log("AFTER DELETION");
 
             if (res.ok) {
                 setConversations(arr => arr.filter(conversation => conversation.id !== selectedConversation.id));
