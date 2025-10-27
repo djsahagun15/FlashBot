@@ -1,4 +1,4 @@
-#mobile-div {
+#container {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,12 +9,12 @@
 }
 
 
-#mobile-div header {
+#container header {
     text-align: center;
 }
 
 
-#mobile-div main {
+#container main {
     display: flex;
     justify-content: center;
     flex: 1;
@@ -22,7 +22,7 @@
 }
 
 
-#mobile-div footer {
+#container footer {
     position: fixed;
     bottom: 0;
     left: 0;

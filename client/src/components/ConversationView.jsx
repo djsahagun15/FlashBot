@@ -1,5 +1,4 @@
-import MobileLayout from "../layouts/MobileLayout"
-import DesktopLayout from "../layouts/DesktopLayout"
+import Layout from "../layouts/Layout"
 
 import TimeBasedGreeting from "./TimeBasedGreeting"
 
@@ -86,7 +85,7 @@ export default function ConversationView() {
     }
 
     return (
-        <MobileLayout
+        <Layout
             headerContent={
                 <div className="view-header">
                     <Link to="/">
@@ -142,6 +141,6 @@ export default function ConversationView() {
                     </div>
                 </div>
             }
-        ></MobileLayout>
+        ></Layout>
     )
 }

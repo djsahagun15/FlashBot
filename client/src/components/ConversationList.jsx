@@ -1,5 +1,4 @@
-import MobileLayout from "../layouts/MobileLayout"
-import DesktopLayout from "../layouts/DesktopLayout"
+import Layout from "../layouts/Layout"
 import { Link, useNavigate } from "react-router-dom";
 
 import "./ConversationList.css";
@@ -93,7 +92,7 @@ export default function ConversationList() {
     }
     
     return (
-        <MobileLayout
+        <Layout
             headerContent={
                 <div className="list-header">
                     <h2>FlashBot</h2>
@@ -195,6 +194,6 @@ export default function ConversationList() {
                     )}
                 </div>
             }
-        ></MobileLayout>
+        ></Layout>
     );
 }

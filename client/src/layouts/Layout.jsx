@@ -1,8 +1,8 @@
-import './MobileLayout.css';
+import './Layout.css';
 
-export default function MobileLayout({ headerContent, mainContent, footerContent }) {
+export default function Layout({ headerContent, mainContent, footerContent }) {
     return (
-        <div id='mobile-div'>
+        <div id='container'>
             <header>{headerContent}</header>
             <main>{mainContent}</main>
             <footer>{footerContent}</footer>
