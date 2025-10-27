@@ -5,9 +5,12 @@ import TimeBasedGreeting from "./TimeBasedGreeting"
 
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { useRef } from "react"
+
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 import "./ConversationView.css"
-import { useRef } from "react"
 
 export default function ConversationView() {
     const navigate = useNavigate();
@@ -98,7 +101,14 @@ export default function ConversationView() {
                         <div className="messages">
                             {messages.map((message, index) => (
                                 <div className={`message ${message.sender === "user" ? "user" : "ai" }`} key={index}>
-                                    <p>{message.content}</p>
+                                    {message.sender === "user" ? (
+                                        <p>{message.content}</p>
+                                    ) : (
+                                        <ReactMarkdown
+                                            remarkPlugins={[remarkGfm]}
+                                            children={message.content}
+                                        />
+                                    )}
                                 </div>
                             ))}
                             {isGenerating && (
