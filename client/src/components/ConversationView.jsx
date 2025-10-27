@@ -16,6 +16,7 @@ export default function ConversationView() {
     
     const [messages, setMessages] = useState([]);
     const [prompt, setPrompt] = useState("");
+    const [isGenerating, setIsGenerating] = useState(false);
 
     const messagesEndRef = useRef(null);
 
@@ -49,6 +50,9 @@ export default function ConversationView() {
         try {
             setMessages(arr => [...arr, { sender: "user", content: prompt }]);
 
+            setIsGenerating(true);
+            setPrompt("");
+
             const res = await fetch(
                 "/api/conversation/add",
                 {
@@ -74,7 +78,7 @@ export default function ConversationView() {
         } catch (err) {
             console.error(err);
         } finally {
-            setPrompt("");
+            setIsGenerating(false);
         }
     }
 
@@ -97,6 +101,11 @@ export default function ConversationView() {
                                     <p>{message.content}</p>
                                 </div>
                             ))}
+                            {isGenerating && (
+                                <div className="message typing">
+                                    <p>Generating...</p>
+                                </div>
+                            )}
                             <div ref={messagesEndRef}></div>
                         </div>
                     )}
@@ -111,8 +120,12 @@ export default function ConversationView() {
                             value={prompt}
                             onChange={(e) => setPrompt(e.target.value)}
                         ></textarea>
-                        {prompt.trim() !== "" && (
-                            <button onClick={promptHandler}>
+                        {(prompt.trim() !== "") && (
+                            <button
+                                className={`send ${isGenerating ? "generating" : ""}`}
+                                onClick={promptHandler} 
+                                disabled={isGenerating}
+                            >
                                 <img alt="Send Prompt"/>
                             </button>
                         )}

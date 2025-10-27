@@ -22,7 +22,7 @@
     width: 60px;
     height: auto;
     display: block;
-    content: url("../assets/back-light.svg");
+    content: url("/src/assets/back-light.svg");
     cursor: pointer;
 }
 
@@ -80,7 +80,8 @@
 }
 
 
-.message.ai {
+.message.ai,
+.message.typing {
     align-self: flex-start;
 }
 
@@ -121,11 +122,44 @@
 }
 
 
-.view-footer img {
+.prompt button img {
     width: 30px;
     height: auto;
     display: block;
-    content: url("../assets/send-message-light.svg");
+    content: url("/src/assets/send-message-light.svg");
+}
+
+
+.prompt button.generating {
+    cursor: not-allowed;
+}
+
+
+.prompt button.generating img {
+    content: url("/src/assets/loader-light.svg");
+    animation: spin 1s infinite linear;
+}
+@keyframes spin {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+
+.message.typing p:after {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    animation: ellipsis steps(4, end) 900ms infinite;
+    content: "\2026";
+    width: 0px;
+}
+
+
+@keyframes ellipsis {
+    to {
+        width: 1em;
+    }
 }
 
 
@@ -136,7 +170,7 @@
     }
     
     .view-header img {
-        content: url("../assets/back-dark.svg");
+        content: url("/src/assets/back-dark.svg");
     }
 
     .message {
@@ -144,7 +178,7 @@
         border: 1px solid #444444;
     }
 
-    .view-footer img {
-        content: url("../assets/send-message-dark.svg");
+    .prompt button img {
+        content: url("/src/assets/send-message-dark.svg");
     }
 }
