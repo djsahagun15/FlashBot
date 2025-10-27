@@ -11,7 +11,7 @@ async function add(req, res) {
         let titlePromise = Promise.resolve(null);
 
         if (!id) {
-            titlePromise = genaiService.generateContent(`Generate ONLY 1 short, descriptive title for this conversation: ${prompt}`);
+            titlePromise = genaiService.generateContent([], `Generate ONLY 1 short, descriptive title for this conversation: ${prompt}`);
             
             const newId = conversationModel.newConversation("New Conversation").lastInsertRowid;
             id = newId;
@@ -19,7 +19,9 @@ async function add(req, res) {
 
         messageModel.addMessage(id, "user", prompt);
 
-        const responsePromise = genaiService.generateContent(prompt);
+        const history = messageModel.getMessages(id);
+
+        const responsePromise = genaiService.generateContent(history, prompt);
 
         const [titleResult, responseResult] = await Promise.all([titlePromise, responsePromise]);
 
