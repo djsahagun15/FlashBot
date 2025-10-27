@@ -9,30 +9,30 @@ AI Chatbot (Gemini 2.0 Flash)
     ```
 
 2. **Backend setup**
-    Install dependencies:
+   Install dependencies:
     ```
     cd server
     npm install
     ```
 
-    Create `.env` file inside `server/services/` and add your Gemini API key:
+   Create `.env` file inside `server/services/` and add your Gemini API key:
     ```
     API_KEY="YOUR_API_KEY_HERE"
     ```
 
-    Start the server:
+   Start the server:
     ```
     node server
     ```
 
 3. **Frontend setup**
-    Install dependencies:
+   Install dependencies:
     ```
     cd client
     npm install
     ```
-    
-    Start dev server:
+
+   Start dev server:
     ```
     npm run dev
     ```
